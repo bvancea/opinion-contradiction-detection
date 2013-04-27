@@ -24,7 +24,6 @@ public class DocumentClient {
     @Value("${document.repository.endpoint}")
     private String documentsEndpointURL;
 
-
     public Document findById(String docId) {
 
         String serviceEndpointURL = documentsEndpointURL + "/{id}";
@@ -33,6 +32,7 @@ public class DocumentClient {
         urlVariables.put("id", docId);
 
         Document result = restTemplate.getForObject(serviceEndpointURL,Document.class, urlVariables);
+
 
         return result;
     }
