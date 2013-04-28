@@ -1,9 +1,7 @@
 package contradiction.client;
 
-import api.controller.dto.OpinionsDTO;
 import api.model.Document;
-import api.model.Opinion;
-import contradiction.client.dto.Documents;
+import contradiction.client.dto.hbase.Documents;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,7 +30,6 @@ public class DocumentClient {
         urlVariables.put("id", docId);
 
         Document result = restTemplate.getForObject(serviceEndpointURL,Document.class, urlVariables);
-
 
         return result;
     }

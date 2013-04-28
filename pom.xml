@@ -32,6 +32,20 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>RepositoryApi</groupId>
+            <artifactId>RepositoryApi</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-solr</artifactId>
+            <version>${spring.data-solr.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -193,7 +207,7 @@
                     <!--<port>9091</port>-->
                     <url>http://localhost:8080/manager/text</url>
                     <server>LocalTomcat</server>
-                    <path>/RepositoryApi-1.0</path>
+                    <path>/ContradictionDetection</path>
                     <username>admin</username>
                     <password>admin</password>
                 </configuration>

@@ -20,4 +20,6 @@
 
         <context:annotation-config/>
 
+        <import resource="classpath:solr.xml"/>
+
 </beans>

@@ -1,4 +1,4 @@
-package contradiction.client.dto;
+package contradiction.client.dto.hbase;
 
 import api.model.Document;
 
