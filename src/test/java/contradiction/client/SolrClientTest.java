@@ -2,13 +2,20 @@ package contradiction.client;
 
 import api.model.Opinion;
 import api.repository.OpinionRepository;
-import java.util.List;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
+
+import javax.annotation.PostConstruct;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,7 +31,10 @@ public class SolrClientTest {
     @Autowired
     SolrClient solrClient;
 
+
+
     @Test
+    @Ignore
     public void testGetOpinions() {
         String holder = "bogdan";
         String target = "coffee";
@@ -34,4 +44,6 @@ public class SolrClientTest {
 
         Assert.isNull(opinions);
     }
+
+
 }

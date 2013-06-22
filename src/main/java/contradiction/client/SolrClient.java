@@ -23,13 +23,16 @@ import java.util.Map;
 @Component
 public class SolrClient {
 
-    @Value("solr.opinion.core.endpoint")
+    @Value("${solr.opinion.core.endpoint}")
     private String solrEndpointURL;
+
+    @Value("${solr.host}")
+    private String solrHost;
 
     private RestTemplate restTemplate;
 
     @Autowired
-    OpinionRepository solrRepository;
+    private OpinionRepository solrRepository;
 
     @PostConstruct
     private void initialize() {
@@ -48,6 +51,43 @@ public class SolrClient {
 
         return opinions;
     }
+
+    public List<Opinion> findOpinionsForTargetAndSentimentWord(String target, String sentimentWord) {
+        List<Opinion> opinions = solrRepository.findBySimilarTargetAndSentimentWord(target, sentimentWord);
+
+        return opinions;
+    }
+
+    public List<Opinion> findOpinionsForTargetAndSentimentOrientation(String holder, Double sentimentOrientation) {
+
+        List<Opinion> opinions = solrRepository.findBySimilarTargetAndSentimentOrientation(holder, sentimentOrientation);
+
+        return opinions;
+    }
+
+    public List<Opinion> findOpinionsForTargetExpansionsAndSentimentOrientation(String holder, Double sentimentOrientation) {
+
+        List<Opinion> opinions = solrRepository.findBySimilarTargetAndSentimentOrientation(holder, sentimentOrientation);
+
+        return opinions;
+    }
+
+    public String opinionsForTargetAndSentimentOrientation(String target, Double sentimentOrientation) {
+
+        String serviceEndpoint = solrHost + "opinion/select";
+
+        String query = String.format("((target:%s OR targetExpansions:%s ) AND sentimentOrientation:(%s))",
+                target, target,sentimentOrientation);
+        String requestURL = serviceEndpoint + "?q=" + query;
+
+        Map<String,String> params = constructParams();
+
+        String response = restTemplate.getForObject(requestURL,String.class,params);
+
+        return response;
+    }
+
+
 
     private Map<String, String> constructParams() {
         Map<String, String> params = new HashMap<String, String>();

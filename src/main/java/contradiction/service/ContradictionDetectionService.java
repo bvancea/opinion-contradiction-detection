@@ -73,22 +73,23 @@ public class ContradictionDetectionService {
         List<String> expansions = candidate.getTargetExpansions();
         int index = expansions.indexOf(newOpinion.getEntity());
 
-        double targetExpansionDistance = candidate.getTargetExpansionWeights().get(index);
-        double sentimentOrientation = newOpinion.getSentimentOrientation();
-        double candidateSO = candidate.getSentimentOrientation();
+        if (index > -1 ) {
+            double targetExpansionDistance = candidate.getTargetExpansionWeights().get(index);
+            double sentimentOrientation = newOpinion.getSentimentOrientation();
+            double candidateSO = candidate.getSentimentOrientation();
 
-        candidateSO = modifySentimentOrientation(candidateSO, targetExpansionDistance);
+            candidateSO = modifySentimentOrientation(candidateSO, targetExpansionDistance);
 
-        double difference = Math.abs(sentimentOrientation - candidateSO);
+            double difference = Math.abs(sentimentOrientation - candidateSO);
 
-        if (difference > threshold) {
-            Contradiction contradiction = new Contradiction();
-            contradiction.setContradictionType(ContradictionConstants.SUSPECTED);
-            contradiction.setFirstOpinionId(newOpinion.getId());
-            contradiction.setSecondOpinionId(candidate.getId());
-            contradictions.add(contradiction);
+            if (difference > threshold) {
+                Contradiction contradiction = new Contradiction();
+                contradiction.setContradictionType(ContradictionConstants.SUSPECTED);
+                contradiction.setFirstOpinionId(newOpinion.getId());
+                contradiction.setSecondOpinionId(candidate.getId());
+                contradictions.add(contradiction);
+            }
         }
-
         return contradictions;
     }
 
